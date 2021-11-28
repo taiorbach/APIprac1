@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<form>
+    <input type="text" placeholder="ID" name="id" id="id"> 
+    <input type="text" placeholder="first name" name="firstName" id="firstName"> 
+    <input type="text" placeholder="last name" name="lastName" id="lastName"> 
+    <button id="sendBtn">send</button>
+</form>
+
+    <script>
+
+        const button = document.querySelector('button')
+        const form = document.querySelector('form')
+
+
+        button.addEventListener('click' , ()=>{
+            const id = document.getElementById('id').value
+            const firstName = document.getElementById('firstName').value
+            const lastName = document.getElementById('lastName').value
+            const person = { id , firstName , lastName}
+            send(person)
+        })
+
+        function send(person){
+            fetch('http://localhost:3000/persons', {
+                method: 'POST',
+                body: JSON.stringify(person),               
+                headers: {
+                    'Content-type': 'application/json',
+                }
+            })
+            .then((response) => {
+                    return response.json()
+                })
+                .then((data) => {
+                    console.log(data)
+                })
+        }
+
+
+
+
+    </script>
+    
+</body>
+</html>
